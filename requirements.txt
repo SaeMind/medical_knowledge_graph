@@ -1,0 +1,25 @@
+# requirements.txt
+# Core dependencies for Medical Knowledge Graph project
+
+# Data Collection
+requests==2.31.0
+biopython==1.83
+
+# Data Processing
+pandas==2.1.4
+numpy==1.26.2
+
+# NLP
+nltk==3.8.1
+
+# Knowledge Graph
+neo4j==5.15.0
+
+# Visualization
+networkx==3.2.1
+matplotlib==3.8.2
+
+# Optional: Advanced NLP (if needed later)
+# transformers==4.36.0
+# torch==2.1.0
+# spacy==3.7.2
