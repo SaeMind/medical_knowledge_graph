@@ -1,33 +1,9 @@
-# Python
+data/pubmed_corpus.parquet
+data/faiss_index/
+results/
 __pycache__/
-*.py[cod]
-*$py.class
+**/__pycache__/
 *.pyc
-*.pyo
-*.pyd
-
-# Virtual environments
-venv/
-.venv/
-env/
-.env/
-
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb_checkpoints
-
-# Data files (large)
-data/raw/*.csv
-data/raw/*.json
-*.parquet
-
-# Neo4j
-*.dump
-
-# OS
 .DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
+**/.DS_Store
+.env
