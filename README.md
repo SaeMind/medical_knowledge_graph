@@ -195,3 +195,54 @@ https://github.com/SaeMind/medical_knowledge_graph
 ## License
 
 MIT.
+
+---
+
+## SciSpacy NER Enrichment (v2.0)
+
+Added in Phase 1 upgrade. Enriches the 50K-abstract corpus with biomedical
+named entity recognition, enabling entity-filtered hybrid retrieval.
+
+### NER Models
+
+Primary: `en_ner_bc5cdr_md` (BC5CDR corpus — diseases + chemicals)
+Fallback: `en_core_sci_md` → `en_core_sci_sm` → regex patterns
+
+Install SciSpacy model:
+```bash
+pip install scispacy
+pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.3/en_ner_bc5cdr_md-0.5.3.tar.gz
+```
+
+### New API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/query/entity` | Entity-filtered RAG query |
+| `GET` | `/entities/search` | Pure entity search by disease/chemical/gene |
+| `GET` | `/entities/cooccur` | Co-occurrence graph for an entity |
+| `GET` | `/entities/summary` | Corpus-level entity statistics |
+| `GET` | `/entities/abstract` | All entities for a PMID |
+
+### Example
+
+```bash
+# Entity-filtered query
+curl -X POST http://localhost:8000/query/entity \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "What is the mortality benefit of statins in heart failure?",
+    "disease": "heart failure",
+    "chemical": "statin"
+  }'
+
+# Co-occurrence graph
+curl "http://localhost:8000/entities/cooccur?entity=metformin&top_n=10"
+```
+
+### Launch (NER-enriched API)
+
+```bash
+uvicorn src.ner_api:app --host 0.0.0.0 --port 8000 --reload
+python -m pytest tests/test_ner.py -v
+```
